@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome to HotJobs - Search the absolute latest</title>
+    <link rel="stylesheet" href="twdev.css">
+</head>
+
+<body>
+    <div>
+        <div id="header" class="w-full flex justify-between">
+            <div>Home</div>
+            <div class="flex flex-col justify-center items-center">
+                <div class="text-3xl text-red-500">&lt; Hot Jobs &gt;</div>
+                <div class="text-lg text-blue-500">for SOFTWARE DEVELOPERS</div>
+                <div class="text-xl text-green-500">Get 'em while they're fresh!</div>
+            </div>
+            <div>Saved</div>
+        </div>
+
+        <div class="flex flex-col justify-center items-center">
+            <div>Showing the <span id="entry-count"></span> most recent jobs</div>
+
+            <table  class="border-collapse border border-gray-400">
+                <thead>
+                    <tr>
+                        <th>Job Title</th>
+                        <th>Company Name</th>
+                        <th>Location</th>
+                        <th>Wage/Salary</th>
+                        <th>Job Type</th>
+                        <th>Remote?</th>
+                        <th>Posted</th>
+                        <th>Saved</th>
+                    </tr>
+                </thead>
+                <tbody id="jobs-list">
+
+                </tbody>
+            </table>
+
+            <div>
+                <button id="show-all">Show all</button> jobs posted within the last 48 hours
+            </div>
+        </div>
+
+        <div>
+            <span>Or change the date to display all jobs posted within the past 2 days of the date specified</span>
+            <input id="date-input" type="date" value="07/23/2021"/>
+            <button id="change-date">Update</button>
+        </div>
+
+
+    </div>
+
+
+    <!--<div id="show-ip"></div>
+
+    <script src="jobs.js"></script>-->
+</body>
+</html>
