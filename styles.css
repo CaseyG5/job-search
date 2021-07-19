@@ -1,0 +1,7 @@
+@tailwindcss base;
+@tailwindcss components;
+@tailwindcss utilities;
+
+tbody tr:nth-child(even) {
+   background-color: #eaeeef;
+}

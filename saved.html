@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome to HotJobs - Search the absolute latest</title>
+    <link rel="stylesheet" href="tailwind.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="p-1">
+        <div id="header" class="w-full flex justify-between">
+            <a class="text-blue-700 font-semibold flex flex-col items-center">
+                Home &nbsp;&nbsp;
+                <span><i class="material-icons text-purple-400">home</i>&nbsp;&nbsp;&nbsp;</span>
+            </a>
+            <div class="flex flex-col justify-center items-center">
+                <div class="font-bold text-4xl text-red-600">&lt; Hot_Jobs &gt;</div>
+                <div class="font-mono font-bold text-blue-600">for(SOFTWARE DEVELOPERS)</div>
+                <div class="text-xl font-mono font-semibold text-green-500">Get 'em while(they're fresh)</div>
+            </div>
+            <div href="saved.html" class="text-black font-semibold flex flex-col items-center">
+                My Jobs
+                <i class="material-icons text-yellow-300">star</i>
+            </div>
+        </div>
+
+        <div class="my-10 flex flex-col justify-center items-center">
+            <div>Showing your <span id="saved-count" class="font-bold">X</span> saved jobs</div>
+
+            <table  class="my-4 border-collapse border border-gray-600">
+                <thead>
+                <tr class="bg-gray-300 text-left">
+                    <th>Job Title</th>
+                    <th>Company Name &nbsp;</th>
+                    <th>Location</th>
+                    <th>Wage/Salary &nbsp;</th>
+                    <th>Job Type &nbsp;</th>
+                    <th>Remote &nbsp;</th>
+                    <th>Posted</th>
+                    <th>Saved</th>
+                </tr>
+                </thead>
+                <tbody id="saved-jobs-list">
+                <tr>
+                    <td><a href="#" class="text-blue-700 underline">JavaScript Developer</a> &nbsp;</td>
+                    <td>Inequality.org</td>
+                    <td>Wash. D.C. &nbsp;</td>
+                    <td>$45/hr</td>
+                    <td>Full time</td>
+                    <td>Yes</td>
+                    <td>1 hour ago &nbsp;</td>
+                    <td><i class="material-icons text-yellow-500">star</i></td>
+                </tr>
+                <tr>
+                    <td><a href="#" class="text-blue-700 underline">JavaScript Programmer</a>&nbsp; &nbsp;</td>
+                    <td>EarthJustice.org</td>
+                    <td>Wash. D.C. &nbsp;</td>
+                    <td>$45/hr</td>
+                    <td>Full time</td>
+                    <td>Yes</td>
+                    <td>2 hours ago &nbsp;</td>
+                    <td><i class="material-icons text-yellow-500">star</i></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
