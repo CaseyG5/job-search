@@ -1,6 +1,13 @@
-@tailwindcss base;
-@tailwindcss components;
-@tailwindcss utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+th, tr {
+   padding: 0 10px 0 0;
+}
+th:last-child {
+   padding-right: 0;
+}
 
 tbody tr:nth-child(even) {
    background-color: #eaeeef;

@@ -35,61 +35,41 @@
 
             <table  class="my-4 border-collapse border border-gray-600">
                 <thead>
-                    <tr class="bg-gray-300 text-left">
-                        <th>Job Title</th>
-                        <th>Company Name &nbsp;</th>
-                        <th>Location</th>
-                        <th>Wage/Salary &nbsp;</th>
-                        <th>Job Type &nbsp;</th>
-                        <th>Remote &nbsp;</th>
-                        <th>Posted</th>
+                    <tr class="h-16 bg-gray-300 text-left">
+                        <th class="w-36">Job Title</th>
+                        <th class="w-64">Company Name</th>
+                        <th class="w-56">Location</th>
+                        <th class="w-28">Min. Salary</th>
+                        <th class="w-24">Job Type</th>
+                        <th class="w-24">Posted</th>
+                        <th class="w-24">Apply by</th>
                         <th>Saved</th>
                     </tr>
                 </thead>
                 <tbody id="jobs-list">
-                    <tr>
-                        <td><a href="#" class="text-blue-700 underline">JavaScript Developer</a> &nbsp;</td>
-                        <td>Inequality.org</td>
-                        <td>Wash. D.C. &nbsp;</td>
-                        <td>$45/hr</td>
-                        <td>Full time</td>
-                        <td>Yes</td>
-                        <td>1 hour ago &nbsp;</td>
-                        <td><i class="material-icons">star_border</i></td>
-                    </tr>
-                    <tr>
-                        <td><a href="#" class="text-blue-700 underline">JavaScript Programmer</a>&nbsp; &nbsp;</td>
-                        <td>EarthJustice.org</td>
-                        <td>Wash. D.C. &nbsp;</td>
-                        <td>$45/hr</td>
-                        <td>Full time</td>
-                        <td>Yes</td>
-                        <td>2 hours ago &nbsp;</td>
-                        <td><i class="material-icons">star_border</i></td>
-                    </tr>
+                    <!-- rows added dynamically with script -->
                 </tbody>
             </table>
 
-            <div>
-                <button id="show-all" class="w-20 mr-2 border border-gray-700 rounded bg-yellow-200 font-semibold shadow-md">Show all</button> jobs posted within the last 48 hours
-            </div>
+            <form id="form-show-all">
+                <button type="submit" id="show-all" class="w-20 mr-2 border border-gray-700 rounded bg-yellow-200 font-semibold shadow-md">Show all</button> jobs posted within the last 48 hours
+            </form>
         </div>
 
         <div class="flex flex-col items-center">
-            <span>Or change the date to display all jobs posted within the <strong>past 2 days</strong> of the date specified</span>
-            <div class="mt-2 flex justify-center">
-                                                            <!-- @TODO: set date max dynamically -->
+            <span>Or change the date to display all jobs posted from <strong>that day</strong> forward</span>
+            <form id="form-update" class="mt-2 flex justify-center">
+
+                <!-- @TODO: set date max dynamically -->
+
                 <input id="date-input" type="date" name="end-date" value="2021-07-23" min="2021-05-01" max="2021-07-23" class="border-2 mr-4"/>
-                <button id="change-date" class="w-20 border border-gray-700 rounded bg-yellow-200 font-semibold shadow-md">Update</button>
-            </div>
+                <button id="change-date" type="submit" class="w-20 border border-gray-700 rounded bg-yellow-200 font-semibold shadow-md">Update</button>
+            </form>
         </div>
 
 
     </div>
 
-
-    <!--<div id="show-ip"></div>
-
-    <script src="jobs.js"></script>-->
+    <script src="jobs.js"></script>
 </body>
 </html>
