@@ -1,7 +1,6 @@
 const SEARCH_URL = 'https://data.usajobs.gov/api/search?Keyword=Software%20Engineer&LocationName=Boston%20Massachusetts&Radius=75&SortField=opendate&ResultsPerPage=20&Page=1';
 const HOST = 'data.usajobs.gov';
-const MY_EMAIL = 'tonewardbound@gmail.com';
-const API_KEY = 'm5CBAwSG9/nJutxR02TA4Hxx7nSfILFkGmeD1Rc74nM=';
+
 
 const jobsList = document.getElementById("jobs-list");          // Table body
 const entryCount = document.getElementById("entry-count");      // Span for # of jobs displayed
