@@ -1,24 +1,18 @@
 let numSavedJobs;
-let jobsListData;
+let rowID;
+let jobData;
 const savedCount = document.getElementById("saved-count");
 const savedJobsList = document.getElementById("saved-jobs-list");
 
-numSavedJobs = localStorage.getItem("myJobsQty");
-savedCount.innerText = `${numSavedJobs}`;
 
-jobsListData = localStorage.getItem("mySavedJobs");
+// @TODO: use try/catch block
+numSavedJobs = localStorage.getItem("savedJobsQty") | 0;
 
-for(job in jobsData) {
+for(let i = 0; i < numSavedJobs; i++) {
     let newTableRow = document.createElement("tr");
-    newTableRow.innerHTML = ("<td><a href=\"\" class=\"text-blue-700 underline\">`${job.title}`</a>&nbsp; &nbsp;</td> " +
-        "<td>`${job.companyName}`</td>" +
-        "<td>`${job.location}` &nbsp;</td>" +
-        "<td>`${job.payRate}`</td>\n" +
-        "<td>`${job.type}`</td>" +
-        "<td>`${job.remote}`</td>" +
-        "<td>`${job.postAge}` ago &nbsp;</td> " +
-        "<td><i class=\"material-icons text-yellow-500\">star</i></td>");
+    rowID = localStorage.getItem(`${i}`);                        // get the original job row ID
+    jobData = localStorage.getItem(`row${rowID}`);              // get the HTML for that table row
+    newTableRow.innerHTML = jobData;
     savedJobsList.appendChild(newTableRow);
 }
-
-
+if(numSavedJobs !== 0) savedCount.innerText = `Showing your ${numSavedJobs} saved job(s)`;

@@ -15,7 +15,7 @@
 <body>
     <div class="p-1">
         <div id="header" class="w-full flex justify-between">
-            <a class="text-blue-700 font-semibold flex flex-col items-center">
+            <a href="index.html" class="text-blue-700 font-semibold flex flex-col items-center">
                 Home &nbsp;&nbsp;
                 <span><i class="material-icons text-purple-400">home</i>&nbsp;&nbsp;&nbsp;</span>
             </a>
@@ -24,49 +24,30 @@
                 <div class="font-mono font-bold text-blue-600">for(SOFTWARE DEVELOPERS)</div>
                 <div class="text-xl font-mono font-semibold text-green-500">Get 'em while(they're fresh)</div>
             </div>
-            <div href="saved.html" class="text-black font-semibold flex flex-col items-center">
+            <div class="text-black font-semibold flex flex-col items-center">
                 My Jobs
                 <i class="material-icons text-yellow-300">star</i>
             </div>
         </div>
 
         <div class="my-10 flex flex-col justify-center items-center">
-            <div>Showing your <span id="saved-count" class="font-bold">X</span> saved jobs</div>
+            <div id="saved-count">Your list of saved jobs is empty</div>
 
             <table  class="my-4 border-collapse border border-gray-600">
                 <thead>
-                <tr class="bg-gray-300 text-left">
-                    <th>Job Title</th>
-                    <th>Company Name &nbsp;</th>
-                    <th>Location</th>
-                    <th>Wage/Salary &nbsp;</th>
-                    <th>Job Type &nbsp;</th>
-                    <th>Remote &nbsp;</th>
-                    <th>Posted</th>
-                    <th>Saved</th>
-                </tr>
+                    <tr class="h-16 px-3 bg-gray-300 text-left">
+                        <th class="w-56">Job Title</th>
+                        <th class="w-64">Company Name</th>
+                        <th class="w-56">Location</th>
+                        <th class="w-28">Min. Salary</th>
+                        <th class="w-24">Job Type</th>
+                        <th class="w-24">Posted</th>
+                        <th class="w-24">Apply by</th>
+                        <th>Saved</th>
+                    </tr>
                 </thead>
                 <tbody id="saved-jobs-list">
-                <tr>
-                    <td><a href="#" class="text-blue-700 underline">JavaScript Developer</a> &nbsp;</td>
-                    <td>Inequality.org</td>
-                    <td>Wash. D.C. &nbsp;</td>
-                    <td>$45/hr</td>
-                    <td>Full time</td>
-                    <td>Yes</td>
-                    <td>1 hour ago &nbsp;</td>
-                    <td><i class="material-icons text-yellow-500">star</i></td>
-                </tr>
-                <tr>
-                    <td><a href="#" class="text-blue-700 underline">JavaScript Programmer</a>&nbsp; &nbsp;</td>
-                    <td>EarthJustice.org</td>
-                    <td>Wash. D.C. &nbsp;</td>
-                    <td>$45/hr</td>
-                    <td>Full time</td>
-                    <td>Yes</td>
-                    <td>2 hours ago &nbsp;</td>
-                    <td><i class="material-icons text-yellow-500">star</i></td>
-                </tr>
+
                 </tbody>
             </table>
 
@@ -76,5 +57,6 @@
         </div>
     </div>
 
+    <script src="saved.js"></script>
 </body>
 </html>
