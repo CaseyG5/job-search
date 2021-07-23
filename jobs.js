@@ -9,7 +9,6 @@ const showAllForm = document.getElementById("form-show-all");
 const showAllBtn = document.getElementById("show-all");
 const dateInput = document.getElementById("date-input");
 const updateForm = document.getElementById("form-update");
-//const todaysDate = new Date();
 let chosenDate;
 let dateChanged = false;
 
@@ -17,11 +16,10 @@ let jobsData = {};
 let numJobsReturned = 0;
 let numJobsDisplayed = 0;
 let newRowEntry;
-let savedJobs = { };
 let numSavedJobs = 0;
-let dateLastChecked;
 
-// Use API to fetch jobs data for latest 10 or more jobs
+
+// Use API with a search URL to fetch jobs data
 fetch(SEARCH_URL, {
     method: 'GET',
     headers: {
