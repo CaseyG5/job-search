@@ -10,9 +10,8 @@ numSavedJobs = localStorage.getItem("savedJobsQty") | 0;
 
 for(let i = 0; i < numSavedJobs; i++) {
     let newTableRow = document.createElement("tr");
-    rowID = localStorage.getItem(`${i}`);                        // get the original job row ID
-    jobData = localStorage.getItem(`row${rowID}`);              // get the HTML for that table row
-    newTableRow.innerHTML = jobData;
+    rowID = localStorage.getItem(`${i}`);                                   // get the original job row ID
+    newTableRow.innerHTML = localStorage.getItem(`row${rowID}`);            // get the HTML for that table row
     savedJobsList.appendChild(newTableRow);
 }
 if(numSavedJobs !== 0) savedCount.innerText = `Showing your ${numSavedJobs} saved job(s)`;
