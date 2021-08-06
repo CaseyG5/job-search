@@ -16,18 +16,20 @@ const init = {
     }
 };
 
-let jobsData = {};                  // JSON object
+let jobsData = [];                  // array of job objects
 let numJobsReturned = 0;
 let newRowEntry = {};               // DOM object
+
 let numJobsDisplayed = 0;
 let numSavedJobs = 0;
 
 const jobsList = document.getElementById("jobs-list");          // Table body
+let fullTable = "";
 const entryCount = document.getElementById("entry-count");      // Span for # of jobs displayed
 const showAllForm = document.getElementById("form-show-all");
 const showAllBtn = document.getElementById("show-all");
 
-
+let again = false;
 
 
 // Fetch jobs data via the API using a URL
@@ -39,7 +41,7 @@ const promise = fetch(SEARCH_URL, init)
         // console.log(promise);
         console.log(numJobsReturned);
         // console.log(jobsData);
-        displayJobs(0, 10);
+        displayJobs(0,10);
 });
 
 main();
@@ -51,14 +53,25 @@ function main() {
     showAllForm.addEventListener('submit', (event) => {
         event.preventDefault();                           // prevent submit button & form from jumping the gun
 
-        // append remaining jobs of our fetched data to table
+        // append remaining jobs (if any) to table
         if(numJobsReturned > numJobsDisplayed ) {
-            displayJobs(10, numJobsReturned);
-            // update entry count
-            entryCount.innerText = `all ${numJobsReturned} posted`;
-            disableShowAll();
-            enableFilters();
-            console.log( filterByCategory("General Engineering") );
+            if( again ) {
+                clearTable();
+                restoreFullTable();
+            }
+            else {
+                displayJobs(10, 10);            // 1 page of jobs at 20 jobs per page
+                // update entry count
+                //entryCount.innerText = `all ${numJobsReturned} posted`;
+                console.log("saving full table...");
+                fullTable = jobsList.innerHTML;
+                //disableShowAll();
+                enableFilters();
+                again = true;
+            }
+            jobsData.forEach( job => {          // so we have a copy to work with
+                filteredJobs.push( job );       // ensure a deep copy!
+            });
         }
     });
 }
@@ -99,7 +112,6 @@ function formatJobsData( jsonObj ) {
             )
         ).substr(4, 11);
 
-        newJob["visible"] = true;
         newJob["sent"] = false;
 
         jobsArr.push(newJob);
@@ -111,60 +123,64 @@ function formatJobsData( jsonObj ) {
 // take starting job and how many to display
 // append the rows of jobs data to table
 // @TODO: refactor idea - to create all job table rows then use displayJobs to unhide them
-/**
- * @param from
- * @param howMany
- */
-function displayFirst10( ) {
 
-    // take the lesser of:  the total # of jobs returned ...and... ith job we wish to see
-    // const upto = numJobsReturned < (from + howMany) ? numJobsReturned : (from + howMany) ;
+function displayJobs( from, howMany ) {
+    const upto = (  (from + howMany) <= numJobsReturned  ) ? (from + howMany) : numJobsReturned;
 
-    for (let k = 0; k < 10; k++) {
+    for (let k = from; k < upto; k++) {
         createRow( jobsData[k] );
         numJobsDisplayed++;
     }
     // update table row entry count
-    entryCount.innerText = `the ${numJobsDisplayed} most recent`;
+    entryCount.innerText = `${numJobsDisplayed}`;
 }
 
-function displayJobs( jobsArr ) {
+function clearTable() {
+    jobsList.innerHTML = "";            // clear table
+    numJobsDisplayed = 0;
+    entryCount.innerText = '0';
+    filteredJobs = [];
+}
 
+function restoreFullTable() {
+    jobsList.innerHTML = fullTable;
+    numJobsDisplayed = numJobsReturned;
+    entryCount.innerText = `${numJobsDisplayed}`;
+}
+
+function displayFiltered( jobsArr ) {
     jobsArr.forEach( job => {
         createRow( job );
         numJobsDisplayed++;
     })
-
-    }
-    // update table row entry count
-    entryCount.innerText = `the ${numJobsDisplayed} most recent`;
+    entryCount.innerText = `${numJobsDisplayed}`;
 }
 
-function createRow( jobObj ) {
+function createRow( job ) {
     newRowEntry = document.createElement('tr');
-    newRowEntry.id = `${jobObj.jobID}`;
-    console.log("jobID = " + `${jobObj.jobID}`);
-    newRowEntry.innerHTML = `<td><a href="${jobObj.jobURL}" class="text-blue-700 underline">${jobObj.jobTitle}</a></td> 
-                <td>${jobObj.companyName}</td>
-                <td>${jobObj.jobLocation}</td>
-                <td id="salary${jobObj.jobID}">$${jobObj.payRate}</td>
-                <td>${jobObj.jobType}</td>
-                <td>${jobObj.jobCategory}</td>
-                <td>${jobObj.postDateFormatted}</td>
-                <td>${jobObj.closeDateFormatted}</td>
-                <td id="star${jobObj.jobID}"><i class="material-icons">star_border</i></td>
-                <td id="share${jobObj.jobID}"><i class="material-icons">send</i></td>`;
+    newRowEntry.id = `${job.jobID}`;
+
+    newRowEntry.innerHTML = `<td><a href="${job.jobURL}" class="text-blue-700 underline">${job.jobTitle}</a></td> 
+                <td>${job.companyName}</td>
+                <td>${job.jobLocation}</td>
+                <td>$${job.payRate}</td>
+                <td>${job.jobType}</td>
+                <td>${job.jobCategory}</td>
+                <td>${job.postDateFormatted}</td>
+                <td>${job.closeDateFormatted}</td>
+                <td id="star${job.jobID}"><i class="material-icons">star_border</i></td>
+                <td id="share${job.jobID}"><i class="material-icons">send</i></td>`;
     jobsList.appendChild(newRowEntry);
 
-    const starCell = document.getElementById(`star${jobObj.jobID}`);
-    const shareCell = document.getElementById(`share${jobObj.jobID}`);
+    const starCell = document.getElementById(`star${job.jobID}`);
+    const shareCell = document.getElementById(`share${job.jobID}`);
 
     starCell.addEventListener('click', () => {
         // if that job doesn't already exist in local storage, then update icon and save job
                                                                         // @TODO: Does "" == null?  In case job is saved, deleted, and saved again
-        if(localStorage.getItem(jobObj.jobID) == null) {
+        if(localStorage.getItem(job.jobID) == null) {
             starCell.innerHTML = "<i class=\"material-icons text-yellow-500\">star</i>";
-            saveJob( jobObj.jobID, newRowEntry );
+            saveJob( job.jobID, newRowEntry );
         }
         // else {
         //     starCell.innerHTML = "<i class=\"material-icons\">star_border</i>";
@@ -173,11 +189,11 @@ function createRow( jobObj ) {
 
     shareCell.addEventListener( 'click', () => {
         //const emailAddress = prompt("Where would you like to send this job?");
-        window.open( `mailto:?&subject=Here's%20a%20job%20for%you&body=${jobObj.jobURL}`, '_blank')
+        window.open( `mailto:?&subject=Here's%20a%20job%20for%you&body=${job.jobURL}`, '_blank')
 
-        if( !jobObj.sent ) {
+        if( !job.sent ) {
             shareCell.innerHTML = "<i class=\"material-icons text-green-600\">send</i>";
-            jobObj.sent = true;
+            job.sent = true;
         }
     });
 }
