@@ -1,3 +1,4 @@
+
 // import dotenv from './node_modules/dotenv';
 // dotenv.config();
 
@@ -19,18 +20,12 @@ const init = {
 let jobsData = [];                  // array of job objects
 let numJobsReturned = 0;
 let newRowEntry = {};               // DOM object
-
 let numJobsDisplayed = 0;
-let numSavedJobs = 0;
 
 const jobsList = document.getElementById("jobs-list");          // Table body
-let fullTable = "";
 const entryCount = document.getElementById("entry-count");      // Span for # of jobs displayed
-const showAllForm = document.getElementById("form-show-all");
-const showAllBtn = document.getElementById("show-all");
 
-let again = false;
-
+let qtySavedJobs = 0;
 
 // Fetch jobs data via the API using a URL
 const promise = fetch(SEARCH_URL, init)
@@ -38,43 +33,10 @@ const promise = fetch(SEARCH_URL, init)
     .then( data => {
         jobsData = formatJobsData( data["SearchResult"]["SearchResultItems"] );
         numJobsReturned = jobsData.length
-        // console.log(promise);
-        console.log(numJobsReturned);
-        // console.log(jobsData);
         displayJobs(0,10);
 });
 
-main();
 
-/////////////////////////////////////////////////////////////////////////
-
-function main() {
-
-    showAllForm.addEventListener('submit', (event) => {
-        event.preventDefault();                           // prevent submit button & form from jumping the gun
-
-        // append remaining jobs (if any) to table
-        if(numJobsReturned > numJobsDisplayed ) {
-            if( again ) {
-                clearTable();
-                restoreFullTable();
-            }
-            else {
-                displayJobs(10, 10);            // 1 page of jobs at 20 jobs per page
-                // update entry count
-                //entryCount.innerText = `all ${numJobsReturned} posted`;
-                console.log("saving full table...");
-                fullTable = jobsList.innerHTML;
-                //disableShowAll();
-                enableFilters();
-                again = true;
-            }
-            jobsData.forEach( job => {          // so we have a copy to work with
-                filteredJobs.push( job );       // ensure a deep copy!
-            });
-        }
-    });
-}
 
 /**
  *
@@ -122,8 +84,11 @@ function formatJobsData( jsonObj ) {
 
 // take starting job and how many to display
 // append the rows of jobs data to table
-// @TODO: refactor idea - to create all job table rows then use displayJobs to unhide them
-
+/**
+ *
+ * @param from
+ * @param howMany
+ */
 function displayJobs( from, howMany ) {
     const upto = (  (from + howMany) <= numJobsReturned  ) ? (from + howMany) : numJobsReturned;
 
@@ -135,26 +100,13 @@ function displayJobs( from, howMany ) {
     entryCount.innerText = `${numJobsDisplayed}`;
 }
 
-function clearTable() {
-    jobsList.innerHTML = "";            // clear table
-    numJobsDisplayed = 0;
-    entryCount.innerText = '0';
-    filteredJobs = [];
-}
-
-function restoreFullTable() {
-    jobsList.innerHTML = fullTable;
-    numJobsDisplayed = numJobsReturned;
-    entryCount.innerText = `${numJobsDisplayed}`;
-}
-
-function displayFiltered( jobsArr ) {
-    jobsArr.forEach( job => {
-        createRow( job );
-        numJobsDisplayed++;
-    })
-    entryCount.innerText = `${numJobsDisplayed}`;
-}
+// function displayFiltered( jobsArr ) {
+//     jobsArr.forEach( job => {
+//         createRow( job );
+//         numJobsDisplayed++;
+//     })
+//     entryCount.innerText = `${numJobsDisplayed}`;
+// }
 
 function createRow( job ) {
     newRowEntry = document.createElement('tr');
@@ -168,33 +120,22 @@ function createRow( job ) {
                 <td>${job.jobCategory}</td>
                 <td>${job.postDateFormatted}</td>
                 <td>${job.closeDateFormatted}</td>
-                <td id="star${job.jobID}"><i class="material-icons">star_border</i></td>
-                <td id="share${job.jobID}"><i class="material-icons">send</i></td>`;
+                <td id="star${job.jobID}" class="text-center"><i class="material-icons">star_border</i></td>
+                <td class="text-center"><a href="mailto:?&subject=Here's%20a%20job%20for%you&body=${job.jobURL}" class="share"><i class="material-icons visited:text-green-600">send</i></a></td>`;
     jobsList.appendChild(newRowEntry);
 
     const starCell = document.getElementById(`star${job.jobID}`);
-    const shareCell = document.getElementById(`share${job.jobID}`);
 
     starCell.addEventListener('click', () => {
         // if that job doesn't already exist in local storage, then update icon and save job
                                                                         // @TODO: Does "" == null?  In case job is saved, deleted, and saved again
         if(localStorage.getItem(job.jobID) == null) {
             starCell.innerHTML = "<i class=\"material-icons text-yellow-500\">star</i>";
-            saveJob( job.jobID, newRowEntry );
+            saveJob( job.jobID, document.getElementById( `${job.jobID}`) );
         }
         // else {
         //     starCell.innerHTML = "<i class=\"material-icons\">star_border</i>";
         // }
-    });
-
-    shareCell.addEventListener( 'click', () => {
-        //const emailAddress = prompt("Where would you like to send this job?");
-        window.open( `mailto:?&subject=Here's%20a%20job%20for%you&body=${job.jobURL}`, '_blank')
-
-        if( !job.sent ) {
-            shareCell.innerHTML = "<i class=\"material-icons text-green-600\">send</i>";
-            job.sent = true;
-        }
     });
 }
 
@@ -202,15 +143,20 @@ function saveJob( jobNumber, rowObj  ) {
 
     // try to save that job data & update # of jobs saved
     try {
-        localStorage.setItem(`${numSavedJobs}`, jobNumber);        // e.g. "0"             : "609237100"
-        numSavedJobs++;                                            // e.g. 1
+        qtySavedJobs = Number( localStorage.getItem("savedJobsQty") )   |   0;
+        console.log("next saved job index: " + qtySavedJobs);
+        localStorage.setItem(`${qtySavedJobs}`, jobNumber);        // e.g. "0"             : "609237100"
         localStorage.setItem(jobNumber, `${rowObj.innerHTML}`);   //  e.g. "609237100"     : "<td>JS Programmer</td>...<td> *star icon* </td>"
-        localStorage.setItem("savedJobsQty", `${numSavedJobs}`);   // e.g. "savedJobsQty"  : "1"
+        console.log("saving job " + jobNumber);
+        qtySavedJobs++;
+        localStorage.setItem("savedJobsQty", `${qtySavedJobs}`);   // e.g. "savedJobsQty"  : "1"
     } catch(e) {
         console.log("saving failed: " + e);
     }
 
 }
+
+
 
 
 //////////  Alternative method
@@ -232,6 +178,8 @@ function saveJob( jobNumber, rowObj  ) {
 //
 // getJobs();
 
+
+
 //const MSEC_PER_DAY = 3600 * 24000 = (72000 + 14400) * 1000 = 86,400,000;
 
 /*
@@ -245,28 +193,3 @@ fetch('https://api.ipify.org/?format=json')
         console.log(USER_IP_ADDR);
     } );
 */
-
-/*
-const thisJob = jobsData[i]["MatchedObjectDescriptor"];
-    const jobID = thisJob["MatchedObjectId"];                                // (number as a string)
-    const jobURL = thisJob["ApplyURI"][0];
-    const jobTitle = thisJob["PositionTitle"];
-    const companyName = thisJob["OrganizationName"];
-    const jobLocation = thisJob["PositionLocationDisplay"];
-    let payRate = String(thisJob["PositionRemuneration"][0]["MinimumRange"]);   // (number as a string)
-    payRate = payRate.substr(0, payRate.length - 2);                // remove ".0"
-    const jobType = thisJob["PositionSchedule"][0]["Name"];
-
-    const jobPostDate = String( thisJob["PublicationStartDate"] );           // "YYYY-MM-DD"
-    const postDateFormatted = String(
-        new Date( jobPostDate.replaceAll('-', '/')     // "YYYY/MM/DD" to avoid 1 day off
-        )
-    ).substr(4, 11);                                             // Omit day of week
-
-    const closingDate = String( thisJob["ApplicationCloseDate"] );
-    const closeDateFormatted = String(
-        new Date( closingDate.replaceAll('-', '/')
-        )
-    ).substr(4, 11);
-
- */
