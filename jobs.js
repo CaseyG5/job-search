@@ -1,13 +1,12 @@
 
-// import dotenv from './node_modules/dotenv';
-// dotenv.config();
+import dotenv from './node_modules/dotenv';
+dotenv.config();
 
 const SEARCH_URL = 'https://data.usajobs.gov/api/search?Keyword=Engineer&LocationName=Boston%20Massachusetts&Radius=25&SortField=opendate&ResultsPerPage=20&Page=1';
 const HOST = 'data.usajobs.gov';
-// const MY_EMAIL = process.env.MY_EMAIL;
-// const API_KEY = process.env.API_KEY;
-const MY_EMAIL = 'tonewardbound@gmail.com';
-const API_KEY = 'm5CBAwSG9/nJutxR02TA4Hxx7nSfILFkGmeD1Rc74nM=';
+const MY_EMAIL = process.env.MY_EMAIL;
+const API_KEY = process.env.API_KEY;
+
 const init = {
     method: 'GET',          // 'GET' is the default so this line is not required
     headers: {
