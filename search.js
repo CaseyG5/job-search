@@ -1,15 +1,18 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 const SEARCH_URL = 'https://data.usajobs.gov/api/search?Keyword=javascript&LocationName=Boston%20Massachusetts&Radius=75&SortField=opendate&ResultsPerPage=10&Page=1';
 const HOST = 'data.usajobs.gov';
-const MY_EMAIL = 'tonewardbound@gmail.com';
-const API_KEY = 'm5CBAwSG9/nJutxR02TA4Hxx7nSfILFkGmeD1Rc74nM=';
+const MY_EMAIL = process.env.MY_EMAIL;
+const API_KEY = process.env.API_KEY;
 
 const searchForm = document.getElementById('search-form');
 const searchBox = document.getElementById('search-box');
-const searchBtn = document.getElementById('search-btn');
+//const searchBtn = document.getElementById('search-btn');
 let searchTerms = "";
 let NEW_SEARCH_URL
 
-let jobsData = {};                  // JSON object
+let myJobsData = {};                  // JSON object
 let numJobsReturned = 0;
 
 searchForm.addEventListener( 'submit', (event) => {
@@ -35,10 +38,9 @@ const getJobs = async ( API_URL ) => {
         }
     }).then(resp => resp.json())
         .then(json => {
-            jobsData = json["SearchResult"]["SearchResultItems"];
-            numJobsReturned = jobsData.length;
-            //displayJobs(0, 10);
-            console.log( jobsData[0] )
+            myJobsData = formatJobsData( json["SearchResult"]["SearchResultItems"] );
+            numJobsReturned = myJobsData.length;
+            console.log( myJobsData );
         });
 
 };
