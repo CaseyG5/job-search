@@ -13,3 +13,18 @@ th:last-child {
 tbody tr:nth-child(even) {
    background-color: #eaeeef;
 }
+
+td i {
+   cursor: pointer;
+}
+
+/*a.share:visited,*/
+/*a.share:visited:hover {*/
+/*   color: green;*/
+/*}*/
+
+/* login styles */
+
+.w114 {
+   width: 456px;
+}
