@@ -25,7 +25,7 @@ updateForm.addEventListener('submit', (event) => {          // @TODO: add jobs b
     }
     numJobsDisplayed = filteredJobs.length;
     entryCount.innerText = `${numJobsDisplayed}`;
-    //disableShowAll();
+
 });
 
 categoryPopup.addEventListener('change', () => {
@@ -37,8 +37,6 @@ categoryPopup.addEventListener('change', () => {
 salaryBtn.addEventListener( 'click', () => {
     if( Number(salaryInput.value) > 41999 ) {        // job must compensate at least $42k
         filteredJobs = filterBySalary( Number(salaryInput.value) );
-        // clearTable();
-        // displayFiltered( filteredJobs );
         entryCount.innerText = `${numJobsDisplayed}`;
     }
 });
@@ -50,7 +48,7 @@ function filterByDate( dateSelected ) {
         if(filteredJobs[j]["jobPostDate"] < dateSelected) {            // if job's post date precedes the selected date
             removeRow( filteredJobs.pop() );                                     // delete the job
         }
-        else break;                 // if chosen date is behind the oldest job shown then stop filtering
+        else break;                                             // if chosen date is behind the oldest job shown then stop filtering
     }
     dateChanged = false;
 }
@@ -68,8 +66,6 @@ function filterBySalary( minSalary ) {
 function filterByCategory( category ) {
     return filteredJobs.filter( job => {
         if( job.jobCategory != category ) {
-            console.log(job.jobCategory + " != ? " + category);
-            console.log(job.jobCategory != category);
             removeRow(job);
             numJobsDisplayed--;
         }
@@ -78,17 +74,8 @@ function filterByCategory( category ) {
 }
 
 function removeRow( job ) {
-    console.log("attempting to remove a row");
     const row = document.getElementById( job.jobID );
-    row.innerHTML = "";
     row.remove();
-    console.log("row should be removed");
-}
-
-function disableShowAll() {
-    showAllBtn.disabled = true;
-    showAllBtn.classList.remove('text-black');
-    showAllBtn.classList.add('text-gray-400');
 }
 
 function enableFilters() {
