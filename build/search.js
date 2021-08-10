@@ -22,14 +22,14 @@ searchForm.addEventListener('submit', event => {
 const getJobs = async API_URL => {
   await fetch(API_URL, {
     headers: {
-      "Host": HOST,
-      // HOST constant declared in jobs.js
+      "Host": HOST,   // HOST constant declared in jobs.js
       "User-Agent": "tonewardbound@gmail.com",
       "Authorization-Key": "m5CBAwSG9/nJutxR02TA4Hxx7nSfILFkGmeD1Rc74nM="
     }
   }).then(resp => resp.json()).then(json => {
     myJobsData = formatJobsData(json["SearchResult"]["SearchResultItems"]);
     myNumJobsReturned = myJobsData.length;
+    console.log(myNumJobsReturned + " job(s) returned");
     console.log(myJobsData);
   });
 };
