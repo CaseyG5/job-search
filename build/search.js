@@ -23,8 +23,8 @@ const getJobs = async API_URL => {
   await fetch(API_URL, {
     headers: {
       "Host": HOST,   // HOST constant declared in jobs.js
-      "User-Agent": "tonewardbound@gmail.com",
-      "Authorization-Key": "m5CBAwSG9/nJutxR02TA4Hxx7nSfILFkGmeD1Rc74nM="
+      "User-Agent": MY_EMAIL,
+      "Authorization-Key": API_KEY
     }
   }).then(resp => resp.json()).then(json => {
     myJobsData = formatJobsData(json["SearchResult"]["SearchResultItems"]);

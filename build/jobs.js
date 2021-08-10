@@ -5,8 +5,8 @@ const init = {
   // 'GET' is the default so this line is not required
   headers: {
     "Host": HOST,
-    "User-Agent": "tonewardbound@gmail.com",
-    "Authorization-Key": "m5CBAwSG9/nJutxR02TA4Hxx7nSfILFkGmeD1Rc74nM="
+    "User-Agent": MY_EMAIL,
+    "Authorization-Key": API_KEY
   }
 };
 let jobsData = []; // array of job objects
