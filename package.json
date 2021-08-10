@@ -1,4 +1,6 @@
 {
+	"type": "module",
+
 	"devDependences": {
 		"@babel/cli": "^7.14.8",
 		"@babel/core": "^7.14.8",
