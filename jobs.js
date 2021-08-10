@@ -12,17 +12,18 @@ const init = {
     "Authorization-Key": apiKey
   }
 };
-
 let jobsData = []; // array of job objects
+
 let numJobsReturned = 0;
 let newRowEntry = {}; // DOM object
+
 let numJobsDisplayed = 0;
-
 const jobsList = document.getElementById("jobs-list"); // Table body
-const entryCount = document.getElementById("entry-count"); // Span for # of jobs displayed
-let qtySavedJobs = 0;
 
-// Fetch jobs data via the API using a URL
+const entryCount = document.getElementById("entry-count"); // Span for # of jobs displayed
+
+let qtySavedJobs = 0; // Fetch jobs data via the API using a URL
+
 const promise = fetch(SEARCH_URL, init).then(resp => resp.json()).then(data => {
   jobsData = formatJobsData(data["SearchResult"]["SearchResultItems"]);
   numJobsReturned = jobsData.length;
@@ -33,6 +34,7 @@ const promise = fetch(SEARCH_URL, init).then(resp => resp.json()).then(data => {
  * @param jsonObj
  * @returns {*[]}
  */
+
 function formatJobsData(jsonObj) {
   // create an array of job objects with only the relevant data
   let jobsArr = [];
@@ -64,14 +66,16 @@ function formatJobsData(jsonObj) {
     jobsArr.push(newJob);
   });
   return jobsArr;
-}
-// take starting job and how many to display
+} // take starting job and how many to display
 // append the rows of jobs data to table
+
 /**
  *
  * @param from
  * @param howMany
  */
+
+
 function displayJobs(from, howMany) {
   const upto = from + howMany <= numJobsReturned ? from + howMany : numJobsReturned;
 
@@ -79,8 +83,17 @@ function displayJobs(from, howMany) {
     createRow(jobsData[k]);
     numJobsDisplayed++;
   } // update table row entry count
+
+
   entryCount.innerText = `${numJobsDisplayed}`;
-}
+} // function displayFiltered( jobsArr ) {
+//     jobsArr.forEach( job => {
+//         createRow( job );
+//         numJobsDisplayed++;
+//     })
+//     entryCount.innerText = `${numJobsDisplayed}`;
+// }
+
 
 function createRow(job) {
   newRowEntry = document.createElement('tr');
@@ -125,4 +138,34 @@ function saveJob(jobNumber, rowObj) {
   } catch (e) {
     console.log("saving failed: " + e);
   }
-}
+} //////////  Alternative method
+//
+// const getJobs = async () => {
+//
+//     const response = await fetch(SEARCH_URL, {
+//         method: 'GET',
+//         headers: {
+//             "Host": HOST,
+//             "User-Agent": MY_EMAIL,
+//             "Authorization-Key": API_KEY
+//         }
+//     });
+//
+//     jobsData = await response.json();
+//     //console.log(jobsData);
+// }
+//
+// getJobs();
+//const MSEC_PER_DAY = 3600 * 24000 = (72000 + 14400) * 1000 = 86,400,000;
+
+/*
+let USER_IP_ADDR;
+
+fetch('https://api.ipify.org/?format=json')
+    .then( resp => resp.json() )
+    .then( data => {
+        console.log( data + '\n' + data.ip );
+        USER_IP_ADDR = data.ip;
+        console.log(USER_IP_ADDR);
+    } );
+*/

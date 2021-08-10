@@ -8,8 +8,8 @@ const searchBox = document.getElementById('search-box'); //const searchBtn = doc
 let searchTerms = "";
 let NEW_SEARCH_URL;
 let myJobsData = {}; // JSON object
-let myNumJobsReturned = 0;
 
+let myNumJobsReturned = 0;
 searchForm.addEventListener('submit', event => {
   event.preventDefault();
 

@@ -1,15 +1,12 @@
 {
-	"plugins": [
-		[ "babel-plugin-dotenv", { "replacedModuleName": "babel-dotenv" } ]
-	],
 	"devDependences": {
+		"@babel/cli": "^7.14.8",
+		"@babel/core": "^7.14.8",
+		"@babel/preset-env": "^7.14.9",
 		"babel-plugin-dotenv": "^0.1.1"
 		
 	},
-	"dependencies": {
-		"dotenv": "^10.0.0",
-		"babel-plugin-dotenv": "^0.1.1"
-	},
+
 	"scripts": {
 		"build-j": "babel jobs.js -d build",
 		"build-s": "babel search.js -d build"
