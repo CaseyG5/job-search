@@ -1,5 +1,7 @@
 const SEARCH_URL = 'https://data.usajobs.gov/api/search?Keyword=Engineer&LocationName=Boston%20Massachusetts&Radius=25&SortField=opendate&ResultsPerPage=20&Page=1';
 const HOST = 'data.usajobs.gov';
+const myEmail = 'tonewardbound@gmail.com';  
+const apiKey = 'm5CBAwSG9/nJutxR02TA4Hxx7nSfILFkGmeD1Rc74nM=';
 const init = {
   method: 'GET',
   // 'GET' is the default so this line is not required
