@@ -7,8 +7,8 @@ const init = {
   // 'GET' is the default so this line is not required
   headers: {
     "Host": HOST,
-    "User-Agent": MY_EMAIL,
-    "Authorization-Key": API_KEY
+    "User-Agent": myEmail,
+    "Authorization-Key": apiKey
   }
 };
 let jobsData = []; // array of job objects
@@ -137,7 +137,11 @@ function saveJob(jobNumber, rowObj) {
   } catch (e) {
     console.log("saving failed: " + e);
   }
-} //////////  Alternative method
+} 
+
+
+
+//////////  Alternative method
 //
 // const getJobs = async () => {
 //
