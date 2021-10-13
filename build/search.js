@@ -1,3 +1,6 @@
+const myEmail = 'tonewardbound@gmail.com';
+const apiKey = 'm5CBAwSG9/nJutxR02TA4Hxx7nSfILFkGmeD1Rc74nM=';
+
 const searchForm = document.getElementById('search-form');
 const searchBox = document.getElementById('search-box');
 let searchTerms = "";
@@ -23,8 +26,8 @@ const getJobs = async API_URL => {
   await fetch(API_URL, {
     headers: {
       "Host": HOST,   // HOST constant declared in jobs.js
-      "User-Agent": MY_EMAIL,
-      "Authorization-Key": API_KEY
+      "User-Agent": myEmail,
+      "Authorization-Key": apiKey
     }
   }).then(resp => resp.json()).then(json => {
     myJobsData = formatJobsData(json["SearchResult"]["SearchResultItems"]);
