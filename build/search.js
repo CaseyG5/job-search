@@ -1,5 +1,5 @@
-const myEmail = 'tonewardbound@gmail.com';
-const apiKey = 'm5CBAwSG9/nJutxR02TA4Hxx7nSfILFkGmeD1Rc74nM=';
+//const myEmail = '';
+//const apiKey = '';    
 
 const searchForm = document.getElementById('search-form');
 const searchBox = document.getElementById('search-box');
