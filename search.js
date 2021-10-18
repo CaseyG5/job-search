@@ -1,7 +1,7 @@
 // import { MY_EMAIL, API_KEY } from 'babel-plugin-dotenv';
 const HOST = 'data.usajobs.gov';
-const myEmail = 'tonewardbound@gmail.com';    // MY_EMAIL;
-const apiKey = 'm5CBAwSG9/nJutxR02TA4Hxx7nSfILFkGmeD1Rc74nM=';    // API_KEY;
+//const myEmail = '';
+//const apiKey = '';    
 const searchForm = document.getElementById('search-form');
 const searchBox = document.getElementById('search-box'); //const searchBtn = document.getElementById('search-btn');
 
